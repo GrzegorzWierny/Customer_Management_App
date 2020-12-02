@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
 
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -12,11 +13,13 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     CATEGORY = (
@@ -33,6 +36,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class Order(models.Model):
     STATUS = (
         ('Pending', 'Pending'),
@@ -48,5 +52,3 @@ class Order(models.Model):
 
     def __str__(self):
         return self.product.name
-
-
